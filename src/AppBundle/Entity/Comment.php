@@ -46,60 +46,56 @@ class Comment {
      * @var type
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ORM\JoinColumn(name="user_id", nullable=true)
      */
     private $user;
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
+    public function __construct() {
+        $this->createdAt = new \DateTime("now");
     }
 
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Comment
-     */
-    public function setContent($content) {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent() {
+    public function __toString() {
         return $this->content;
     }
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Comment
-     */
-    public function setCreatedAt($createdAt) {
-        $this->createdAt = $createdAt;
-
-        return $this;
+    function getId() {
+        return $this->id;
     }
 
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt() {
+    function getContent() {
+        return $this->content;
+    }
+
+    function getCreatedAt() {
         return $this->createdAt;
+    }
+
+    function getPost() {
+        return $this->post;
+    }
+
+    function getUser() {
+        return $this->user;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setContent($content) {
+        $this->content = $content;
+    }
+
+    function setCreatedAt(\DateTime $createdAt) {
+        $this->createdAt = $createdAt;
+    }
+
+    function setPost($post) {
+        $this->post = $post;
+    }
+
+    function setUser($user) {
+        $this->user = $user;
     }
 
 }

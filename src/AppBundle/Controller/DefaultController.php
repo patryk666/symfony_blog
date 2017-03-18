@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use AppBundle\Form\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,8 +15,8 @@ class DefaultController extends Controller {
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request) {
-        
-        
+
+
 
         $qb = $this->getDoctrine()
                 ->getManager()
@@ -34,14 +35,34 @@ class DefaultController extends Controller {
     /**
      * @Route("/news/{id}", name="news_show")
      */
-    public function showAction(Post $post) {
-        
+    public function showAction(Post $post, Request $request) {
 
-        $form = $this->createForm(CommentType::class);
+$form = null;
+        //jeżeli użytkownik jest zalogowany
+        if ($user = $this->getUser()) {
+
+
+            $comment = new Comment();
+            $comment->setPost($post);
+            $comment->setUser($user);
+
+            $form = $this->createForm(CommentType::class, $comment);
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($comment);
+                $em->flush();
+
+                $this->addFlash('succes', 'Komentarz został dodany!');
+                return $this->redirectToRoute('news_show', ['id' => $post->getId()]);
+            }
+        }
+
 
         return $this->render('default/news.html.twig', [
                     'post' => $post,
-                    'form' => $form->createView()
+                    'form' => is_null($form) ? $form : $form->createView()
         ]);
     }
 

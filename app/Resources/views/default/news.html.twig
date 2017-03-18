@@ -10,7 +10,24 @@
         <hr>
         <h3>Komentarze:</h3>
 
-        {{ form(form) }}
-<button type="button" class="btn btn-danger pull-right">Dodaj komentarz</button>
+        {% if app.user %}
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-danger pull-right">Dodaj komentarz</button>
+            {{ form_end(form) }}
+
+        {% else %}
+            <p>Komentarze mogą dodawać tylko <a href="{{ path('fos_user_security_login') }}">zalogowani</a> użytkownicy</p>
+        {% endif %}
+
+        {% for comment in post.comments %}
+
+            <div>
+                <p>{{ comment.content }}</p>
+                <p>{{ comment.CreatedAt | date("d-m-Y H:i") }} Dodał: {{ comment.user }}</p>
+            </div>
+
+        {% endfor %}
     </div>
 {% endblock %}

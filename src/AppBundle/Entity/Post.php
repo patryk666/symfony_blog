@@ -59,102 +59,54 @@ class Post {
     public function __toString() {
         return $this->title;
     }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId() {
+    
+    function getId() {
         return $this->id;
     }
 
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Post
-     */
-    public function setTitle($title) {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle() {
+    function getTitle() {
         return $this->title;
     }
 
-    /**
-     * Set lead
-     *
-     * @param string $lead
-     *
-     * @return Post
-     */
-    public function setLead($lead) {
-        $this->lead = $lead;
-
-        return $this;
-    }
-
-    /**
-     * Get lead
-     *
-     * @return string
-     */
-    public function getLead() {
+    function getLead() {
         return $this->lead;
     }
 
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Post
-     */
-    public function setContent($content) {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent() {
+    function getContent() {
         return $this->content;
     }
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Post
-     */
-    public function setCreatedAt($createdAt) {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt() {
+    function getCreatedAt() {
         return $this->createdAt;
     }
+
+    function getComments() {
+        return $this->comments;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setTitle($title) {
+        $this->title = $title;
+    }
+
+    function setLead($lead) {
+        $this->lead = $lead;
+    }
+
+    function setContent($content) {
+        $this->content = $content;
+    }
+
+    function setCreatedAt(\DateTime $createdAt) {
+        $this->createdAt = $createdAt;
+    }
+
+    function setComments($comments) {
+        $this->comments = $comments;
+    }
+
 
 }
